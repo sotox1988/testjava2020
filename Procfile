@@ -1,0 +1,1 @@
+web: java -Dserver.port=$PORT -jar target/testjava.matias.23people-0.0.1-SNAPSHOT.jar
