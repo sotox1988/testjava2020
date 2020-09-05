@@ -1,23 +1,37 @@
 package com.example.testjava.matias.people.controllers;
 
+import com.example.testjava.matias.people.model.dto.CourseDTO;
 import com.example.testjava.matias.people.model.dto.StudentDTO;
 import com.example.testjava.matias.people.service.StudentService;
+import com.example.testjava.matias.people.utils.RutConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/student")
+@RequestMapping("/students")
 public class StudentController {
 
     @Autowired
     private StudentService studentService;
 
-    @GetMapping("/{rut}")
-    public StudentDTO findStudentByRut(@PathVariable String rut){
-        StudentDTO studentDTO = studentService.getStudentByRut(rut);
+    @GetMapping("/{id}")
+    public StudentDTO findStudentByRut(@PathVariable Long id){
+        StudentDTO studentDTO = studentService.getStudentById(id);
         return studentDTO;
+    }
+
+    @GetMapping("/")
+    List<StudentDTO> getAllCourse(){
+        List<StudentDTO> studentDTOList = studentService.getAllStudents();
+        return studentDTOList;
+    }
+
+    @PostMapping("/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public StudentDTO createStudent(@RequestBody StudentDTO StudentDTO){
+        return studentService.saveStudent(StudentDTO);
     }
 }

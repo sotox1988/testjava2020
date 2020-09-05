@@ -2,6 +2,7 @@ package com.example.testjava.matias.people.model.mappers;
 
 import com.example.testjava.matias.people.model.dto.StudentDTO;
 import com.example.testjava.matias.people.model.entity.Student;
+import com.example.testjava.matias.people.utils.RutConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,11 +18,12 @@ public class StudentMapper {
         Student student = null;
         if(dto != null){
             student = new Student();
-            student.setRut(dto.getRut());
+            RutConverter rc = new RutConverter();
+            student.setIdRutStudent(rc.asInteger(dto.getRut()).longValue());
             student.setName(dto.getName());
             student.setLastName(dto.getLastName());
             student.setAge(dto.getAge());
-            student.setCourses(dto.getCourses().stream().map(this.courseMapper::asCourse).collect(Collectors.toList()));
+            student.setCourse(courseMapper.asCourse(dto.getCourse()));
         }
         return student;
     }
@@ -30,11 +32,12 @@ public class StudentMapper {
         StudentDTO studentDTO = null;
         if(entity != null){
             studentDTO = new StudentDTO();
-            studentDTO.setRut(entity.getRut());
+            RutConverter rc = new RutConverter();
+            studentDTO.setRut(rc.asString(entity.getIdRutStudent().intValue()));
             studentDTO.setName(entity.getName());
             studentDTO.setLastName(entity.getLastName());
             studentDTO.setAge(entity.getAge());
-            studentDTO.setCourses(entity.getCourses().stream().map(this.courseMapper::asCourseDTO).collect(Collectors.toList()));
+            studentDTO.setCourse(courseMapper.asCourseDTO(entity.getCourse()));
         }
         return studentDTO;
     }

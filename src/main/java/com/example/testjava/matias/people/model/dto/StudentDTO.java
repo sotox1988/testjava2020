@@ -10,12 +10,13 @@ public class StudentDTO implements Serializable {
     private static final long serialVersionUID = 6809204689427414904L;
 
     private String rut;
-    @Length(max = 250, message = "El largo máximo ha sido sobrepasado (250)")
+    @Length(max = 250, message = "Max char (250)")
     private String name;
-    @Length(max = 250, message = "El largo máximo ha sido sobrepasado (250)")
+    @Length(max = 250, message = "Max char (250)")
     private String lastName;
     private Integer age;
-    private List<CourseDTO> courses;
+    private CourseDTO course;
+
 
     public String getRut() { return rut; }
 
@@ -33,7 +34,7 @@ public class StudentDTO implements Serializable {
 
     public void setAge(Integer age) { this.age = age; }
 
-    public List<CourseDTO> getCourses() { return courses; }
+    public CourseDTO getCourse() { return course; }
 
-    public void setCourses(List<CourseDTO> courses) { this.courses = courses; }
+    public void setCourse(CourseDTO course) { this.course = course; }
 }

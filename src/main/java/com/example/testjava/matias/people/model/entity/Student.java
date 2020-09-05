@@ -10,35 +10,21 @@ public class Student implements Serializable {
     private static final long serialVersionUID = 3193698935904425109L;
 
     @Id
-    @Column(name = "id_student")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idStudent;
-
-    @Column(name = "rut", unique = true)
-    private String rut;
-
+    @Column(name = "id_rut_student")
+    private Long idRutStudent;
     @Column(name = "name", length = 250)
     private String name;
-
     @Column(name = "last_name", length = 250)
     private String lastName;
-
     @Column(name = "age")
     private Integer age;
+    @JoinColumn(name = "code_course_id", referencedColumnName = "id_code_course")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Course course;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id"),
-            uniqueConstraints = {@UniqueConstraint(columnNames = {"student_id","course_id"})})
-    private List<Course> courses;
+    public Long getIdRutStudent() { return idRutStudent; }
 
-    public Long getIdStudent() { return idStudent; }
-
-    public void setIdStudent(Long idStudent) { this.idStudent = idStudent; }
-
-    public String getRut() { return rut; }
-
-    public void setRut(String rut) { this.rut = rut; }
+    public void setIdRutStudent(Long idRutStudent) { this.idRutStudent = idRutStudent; }
 
     public String getName() { return name; }
 
@@ -52,7 +38,7 @@ public class Student implements Serializable {
 
     public void setAge(Integer age) { this.age = age; }
 
-    public List<Course> getCourses() { return courses; }
+    public Course getCourse() { return course; }
 
-    public void setCourses(List<Course> courses) { this.courses = courses; }
+    public void setCourse(Course course) { this.course = course; }
 }

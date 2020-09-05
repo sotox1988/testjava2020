@@ -11,8 +11,8 @@ public class CourseMapper {
         Course course = null;
         if(dto != null){
             course = new Course();
+            course.setIdCodeCourse(dto.getCode());
             course.setName(dto.getName());
-            course.setCode(dto.getCode());
         }
         return course;
     }
@@ -21,8 +21,8 @@ public class CourseMapper {
         CourseDTO courseDTO = null;
         if(entity != null){
             courseDTO = new CourseDTO();
+            courseDTO.setCode(entity.getIdCodeCourse());
             courseDTO.setName(entity.getName());
-            courseDTO.setCode(entity.getCode());
         }
         return courseDTO;
     }
