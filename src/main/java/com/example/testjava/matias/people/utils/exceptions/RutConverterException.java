@@ -1,4 +1,4 @@
-package com.example.testjava.matias.people.utils;
+package com.example.testjava.matias.people.utils.exceptions;
 
 public class RutConverterException extends RuntimeException {
     public RutConverterException() {

@@ -1,5 +1,7 @@
 package com.example.testjava.matias.people.utils;
 
+import com.example.testjava.matias.people.utils.exceptions.RutConverterException;
+
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.regex.Matcher;
@@ -11,49 +13,49 @@ public class RutConverter {
     public RutConverter() {
     }
 
-    public Integer asInteger(String rutTexto) {
-        if (rutTexto != null && !rutTexto.trim().isEmpty()) {
-            char digito = 'c';
+    public Integer asInteger(String rutText) {
+        if (rutText != null && !rutText.trim().isEmpty()) {
+            char digit = 'c';
             Pattern mask = null;
             mask = Pattern.compile("[0-9]+-[0-9kK]{1}");
-            String[] auxRutArray = this.generarRutFieldYRutConPuntos(rutTexto);
+            String[] auxRutArray = this.generateRutFieldAndRutWhitDot(rutText);
             String rutField = auxRutArray[0];
-            String rutConPuntos = auxRutArray[1];
-            String[] arreglorutSinPuntos = rutConPuntos.split("\\.");
-            String rutSinPuntos = this.generarRutSinPuntos(arreglorutSinPuntos);
+            String rutWhitDot = auxRutArray[1];
+            String[] arreglorutSinPuntos = rutWhitDot.split("\\.");
+            String rutWhitoutDot = this.generateRutWithoutDot(arreglorutSinPuntos);
             if (rutField.split("-").length > 1) {
-                Matcher matcher = mask.matcher(rutSinPuntos + "-" + rutField.split("-")[1]);
+                Matcher matcher = mask.matcher(rutWhitoutDot + "-" + rutField.split("-")[1]);
                 if (!matcher.matches()) {
-                    throw new RutConverterException("Por favor ingrese RUN en formato correcto");
+                    throw new RutConverterException("Please enter RUT in correct format");
                 }
             }
 
             if (rutField.split("-").length > 1) {
-                digito = rutField.split("-")[1].charAt(0);
-                if (Integer.parseInt(rutSinPuntos) < 1 || digito < 0) {
-                    throw new RutConverterException("RUN invalido");
+                digit = rutField.split("-")[1].charAt(0);
+                if (Integer.parseInt(rutWhitoutDot) < 1 || digit < 0) {
+                    throw new RutConverterException("RUT invalid");
                 }
             }
 
             int m = 0;
             int s = 1;
 
-            for(int t = Integer.parseInt(rutSinPuntos); t != 0; t /= 10) {
+            for(int t = Integer.parseInt(rutWhitoutDot); t != 0; t /= 10) {
                 s = (s + t % 10 * (9 - m++ % 6)) % 11;
             }
 
-            char digitoAux = (char)(s != 0 ? s + 47 : 75);
-            if (!String.valueOf(digito).equalsIgnoreCase(String.valueOf(digitoAux).toUpperCase())) {
-                throw new RutConverterException("Dígito verificador incorrecto");
+            char digitAux = (char)(s != 0 ? s + 47 : 75);
+            if (!String.valueOf(digit).equalsIgnoreCase(String.valueOf(digitAux).toUpperCase())) {
+                throw new RutConverterException("Incorrect check digit");
             } else {
-                return Integer.parseInt(rutSinPuntos);
+                return Integer.parseInt(rutWhitoutDot);
             }
         } else {
             return null;
         }
     }
 
-    private String[] generarRutFieldYRutConPuntos(String rutTexto) {
+    private String[] generateRutFieldAndRutWhitDot(String rutTexto) {
         String rutField = rutTexto.trim();
         String rutConPuntos;
         if (!rutField.contains("-") && rutField.length() >= 2) {
@@ -66,19 +68,19 @@ public class RutConverter {
         return new String[]{rutField, rutConPuntos};
     }
 
-    private String generarRutSinPuntos(String[] arreglorutSinPuntos) {
+    private String generateRutWithoutDot(String[] arrayRutWithoutDots) {
         StringBuilder sb1 = new StringBuilder("");
 
-        for(int i = 0; i < arreglorutSinPuntos.length; ++i) {
-            sb1.append(arreglorutSinPuntos[i]);
+        for(int i = 0; i < arrayRutWithoutDots.length; ++i) {
+            sb1.append(arrayRutWithoutDots[i]);
         }
 
-        String[] arreglorutSinComas = sb1.toString().trim().toUpperCase().split("\\,");
+        String[] arrayRutWhitoutCommas = sb1.toString().trim().toUpperCase().split("\\,");
         StringBuilder sb2 = new StringBuilder("");
 
         int rutInt;
-        for(rutInt = 0; rutInt < arreglorutSinComas.length; ++rutInt) {
-            sb2.append(arreglorutSinComas[rutInt]);
+        for(rutInt = 0; rutInt < arrayRutWhitoutCommas.length; ++rutInt) {
+            sb2.append(arrayRutWhitoutCommas[rutInt]);
         }
 
         try {
@@ -87,36 +89,36 @@ public class RutConverter {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException var6) {
-            throw new RutConverterException("Por favor ingrese RUN en formato correcto");
+            throw new RutConverterException("Please enter RUT in correct format");
         }
 
         return sb2.toString();
     }
 
-    public String asString(Integer rutEntero) {
+    public String asString(Integer rutNumber) {
         /*
-         * convertir numero de rut a String con su digito verificador
+         * convert number from rut to String with its check digit
          */
         String rutAux = null;
         int rut;
-        if (rutEntero == null) {
+        if (rutNumber == null) {
             rut = -1;
         } else {
-            rut = (Integer) rutEntero;
+            rut = rutNumber.intValue();
         }
         if (rut > 0) {
             int m = 0;
             int s = 1;
-            int t = (Integer) rut;
+            int t = rut;
             for (; t != 0; t /= 10) {
                 s = (s + t % 10 * (9 - m++ % 6)) % 11;
             }
-            char digitoAux = (char) (s != 0 ? s + 47 : 75);
+            char digitAux = (char) (s != 0 ? s + 47 : 75);
             DecimalFormatSymbols formatSymbols = new DecimalFormatSymbols();
             formatSymbols.setGroupingSeparator('.');
             DecimalFormat df = new DecimalFormat();
             df.setDecimalFormatSymbols(formatSymbols);
-            rutAux = df.format(rut) + "-" + digitoAux;
+            rutAux = df.format(rut) + "-" + digitAux;
         }
         return rutAux;
     }

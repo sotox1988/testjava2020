@@ -16,7 +16,7 @@ public class CourseController {
     private CourseService courseService;
 
     @GetMapping("/{id}")
-    public CourseDTO findCourseById(@PathVariable String id){
+    public CourseDTO findCourseByCodeId(@PathVariable String id){
         CourseDTO courseDTO = courseService.getCourseById(id);
         return courseDTO;
     }
@@ -38,9 +38,6 @@ public class CourseController {
         CourseDTO courseDb = courseService.getCourseById(id);
         if(courseDTO.getName() != null && !courseDTO.getName().isEmpty()) {
             courseDb.setName(courseDTO.getName());
-        }
-        if(courseDTO.getCode() != null && !courseDTO.getCode().isEmpty()) {
-            courseDb.setCode(courseDTO.getCode());
         }
         return courseService.saveCourse(courseDb);
     }
