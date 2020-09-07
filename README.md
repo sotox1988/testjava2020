@@ -8,7 +8,7 @@ Spring Web para la construcción de los servicios REST.
 H2 para la persistencia de los datos, aunque con esta Base de datos solo se persisten en RAM (Para motivos de pruebas).
 Spring security para la protección de la API mediante OAUTH2 y JWT.
 
-Para el despliegue se utilizaron los servicios ofrecidos por la plataforma Heroku:
+Para el despliegue se utilizaron los servicios ofrecidos por la plataforma Heroku y Google Cloud Platform con App Engine:
 
 # Descripción de la Api:
 
@@ -18,9 +18,9 @@ Se desplego la aplicación en los servicios ofrecidos en la nube por Heroku y Go
 
 
 
-URL GCP: https://testjava2020.rj.r.appspot.com/ 
+**URL GCP:** https://testjava2020.rj.r.appspot.com/ 
 
-URL HEROKU: https://test-app-java-2020.herokuapp.com/
+**URL HEROKU:** https://test-app-java-2020.herokuapp.com/
 
 
 
@@ -64,3 +64,12 @@ La estructura de los JSON de COURSES sería:
             "name": "History and geography"
         }
 }
+
+
+**NOTA: La rama  MASTER tiene la implementación de Spring security con Oauth2, pero se logro en parte crear el token en la URL /oauth/token/ ... no se logro validar la rutas protegidas de los endpoint /courses/ , /students/ ... por lo que se opta a subir sin spring security para validar el funcionamiento de la API REST.**
+
+**Ramas:**
+
+**master:** Tiene implementación de spring security Oauth2, pero no se logra hacer que funcione el token para acceder a las rutas protegidas.
+
+**api-whitout-security:** Tiene el desarrollo de la api sin spring security.
