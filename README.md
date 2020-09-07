@@ -1,4 +1,4 @@
-# testjava2020
+# Readme
 Construcción de API REST para evaluación de un test solicitado.
 
 Para el desarrollo del proyecto se utilizo java 11, Sprinboot 2.3.3, Maven con las dependencias (JPA, Spring Web, H2 Database, Spring security Oauth2). 
@@ -10,7 +10,7 @@ Spring security para la protección de la API mediante OAUTH2 y JWT.
 
 Para el despliegue se utilizaron los servicios ofrecidos por la plataforma Heroku:
 
-Descripción de la Api:
+# Descripción de la Api:
 
 La api esta compuesta por 2 endpoints principales:
 Uno para COURSES y otro para STUDENTS, cada ruta posee sus metodos GET, POST, PUT y DELETE.
@@ -18,7 +18,7 @@ Uno para COURSES y otro para STUDENTS, cada ruta posee sus metodos GET, POST, PU
 
 
 
-# 1) La ruta para COURSES sería (**/courses/)
+La ruta para COURSES sería (**/courses/)
 
 GET:      https://test-app-java-2020.herokuapp.com/courses/
 
@@ -37,7 +37,7 @@ La estructura de los JSON de COURSES sería:
 
 
 
-# 2) La ruta para STUDENTS sería (**/students/)
+La ruta para STUDENTS sería (**/students/)
 
 GET:      https://test-app-java-2020.herokuapp.com/students/
 
