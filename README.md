@@ -53,7 +53,7 @@ PUT:      https://test-app-java-2020.herokuapp.com/students/{rut-sin-digito-veri
 
 DELETE:   https://test-app-java-2020.herokuapp.com/students/{rut-sin-digito-verificador-y-sin-puntos}
 
-La estructura de los JSON de COURSES sería:
+La estructura de los JSON de STUDENTS sería:
 {
         "rut": "11.800.819-7",
         "name": "Mario",
