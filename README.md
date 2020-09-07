@@ -16,8 +16,13 @@ La api esta compuesta por 2 endpoints principales:
 Uno para COURSES y otro para STUDENTS, cada ruta posee sus metodos GET, POST, PUT y DELETE.
 Se desplego la aplicación en los servicios ofrecidos en la nube por Heroku y Google cloud platform mediante App Engine.
 
-URL GCP: https://testjava2020.rj.r.appspot.com/
+
+
+URL GCP: https://testjava2020.rj.r.appspot.com/ 
+
 URL HEROKU: https://test-app-java-2020.herokuapp.com/
+
+
 
 La ruta para COURSES sería (**/courses/)
 
