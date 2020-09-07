@@ -18,7 +18,7 @@ Uno para COURSES y otro para STUDENTS, cada ruta posee sus metodos GET, POST, PU
 
 
 
-1) La ruta para COURSES sería (**/courses/)
+# 1) La ruta para COURSES sería (**/courses/)
 
 GET:      https://test-app-java-2020.herokuapp.com/courses/
 
@@ -37,7 +37,7 @@ La estructura de los JSON de COURSES sería:
 
 
 
-2) La ruta para STUDENTS sería (**/students/)
+# 2) La ruta para STUDENTS sería (**/students/)
 
 GET:      https://test-app-java-2020.herokuapp.com/students/
 
