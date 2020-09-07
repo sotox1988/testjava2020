@@ -2,7 +2,7 @@ package com.example.testjava.matias.people.service.impl;
 
 import com.example.testjava.matias.people.model.entity.UserEntity;
 import com.example.testjava.matias.people.repository.OAuthRepository;
-import com.example.testjava.matias.people.service.IUsuarioService;
+import com.example.testjava.matias.people.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +18,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UsuarioService implements IUsuarioService, UserDetailsService {
+public class UserService implements IUserService, UserDetailsService {
 
-	private Logger log = LoggerFactory.getLogger(UsuarioService.class);
+	private Logger log = LoggerFactory.getLogger(UserService.class);
 
 	@Autowired
 	private OAuthRepository oAuthRepository;
@@ -31,7 +31,8 @@ public class UsuarioService implements IUsuarioService, UserDetailsService {
 		try {
 			UserEntity userEntity = oAuthRepository.findByUsername(username);
 
-			List<GrantedAuthority> authorities = userEntity.getRoles().stream()
+			List<GrantedAuthority> authorities =
+					userEntity.getRoles().stream()
 					.map(role -> new SimpleGrantedAuthority(role.getName()))
 					.peek(authority -> log.info("Role: " + authority.getAuthority())).collect(Collectors.toList());
 

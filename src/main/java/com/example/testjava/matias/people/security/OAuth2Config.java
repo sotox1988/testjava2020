@@ -3,20 +3,30 @@ package com.example.testjava.matias.people.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
+import java.util.Arrays;
+
 @Configuration
 public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
-    private String clientid = "tutorialspoint";
-    private String clientSecret = "my-secret-key";
+
+    @Value("${config.security.oauth.client.id}")
+    private String clientid;
+
+    @Value("${config.security.oauth.client.secret}")
+    private String clientSecret;
+
     private String privateKey = "-----BEGIN RSA PRIVATE KEY-----\n" +
             "MIIEogIBAAKCAQEA1OH6NJ/6tCwtBcZjzi22L7/TC3bZ3JHfdBKGmYo7OZOkf9Qt" +
             "TJYaWeEZj1sG0KhXVgXjgebbSpEZ5wB9EQjdTuVQJDgBRMcrWrHFxQtK9tZiqz5P" +
@@ -55,6 +65,13 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
             "fQIDAQAB" +
             "\n-----END PUBLIC KEY-----\n";
 
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private ClaimsToken claimsToken;
+
     @Autowired
     @Qualifier("authenticationManagerBean")
     private AuthenticationManager authenticationManager;
@@ -74,20 +91,28 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.authenticationManager(authenticationManager).tokenStore(tokenStore())
-                .accessTokenConverter(tokenEnhancer());
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(claimsToken, tokenEnhancer()));
+
+        endpoints.authenticationManager(authenticationManager)
+                .tokenStore(tokenStore())
+                .accessTokenConverter(tokenEnhancer())
+                .tokenEnhancer(tokenEnhancerChain);
     }
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
+        security.tokenKeyAccess("permitAll()")
+                .checkTokenAccess("isAuthenticated()");
     }
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory().withClient(clientid).secret(clientSecret).scopes("read", "write")
-                .authorizedGrantTypes("password", "refresh_token").accessTokenValiditySeconds(20000)
-                .refreshTokenValiditySeconds(20000);
-
+        clients.inMemory().withClient(clientid)
+                .secret(passwordEncoder.encode(clientSecret))
+                .scopes("read", "write")
+                .authorizedGrantTypes("password", "refresh_token")
+                .accessTokenValiditySeconds(3600)
+                .refreshTokenValiditySeconds(3600);
     }
 }
