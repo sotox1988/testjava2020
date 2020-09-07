@@ -15,10 +15,17 @@ Descripción de la Api:
 La api esta compuesta por 2 endpoints principales:
 Uno para COURSES y otro para STUDENTS, cada ruta posee sus metodos GET, POST, PUT y DELETE.
 
+
+
+
 1) La ruta para COURSES sería (**/courses/)
+
 GET:      https://test-app-java-2020.herokuapp.com/courses/
+
 POST:     https://test-app-java-2020.herokuapp.com/courses/
+
 PUT:      https://test-app-java-2020.herokuapp.com/courses/{codigo-curso}
+
 DELETE:   https://test-app-java-2020.herokuapp.com/courses/{codigo-curso}
 
 La estructura de los JSON de COURSES sería:
@@ -27,10 +34,17 @@ La estructura de los JSON de COURSES sería:
         "name": "Math"
 }
 
+
+
+
 2) La ruta para STUDENTS sería (**/students/)
+
 GET:      https://test-app-java-2020.herokuapp.com/students/
+
 POST:     https://test-app-java-2020.herokuapp.com/students/
+
 PUT:      https://test-app-java-2020.herokuapp.com/students/{rut-sin-digito-verificador-y-sin-puntos}
+
 DELETE:   https://test-app-java-2020.herokuapp.com/students/{rut-sin-digito-verificador-y-sin-puntos}
 
 La estructura de los JSON de COURSES sería:
