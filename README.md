@@ -69,8 +69,7 @@ La estructura de los JSON de STUDENTS sería:
 **Ramas:**
 
 ```
+master: Tiene implementación de spring security Oauth2, pero no se logra hacer que funcione el token para acceder a las rutas protegidas.
 
-**master:** Tiene implementación de spring security Oauth2, pero no se logra hacer que funcione el token para acceder a las rutas protegidas.
-
-**api-whitout-security:** Tiene el desarrollo de la api sin spring security.
+api-whitout-security: Tiene el desarrollo de la api sin spring security.
 ```
