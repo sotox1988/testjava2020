@@ -50,7 +50,7 @@ La estructura de los JSON de COURSES sería:
 
 GET (Trae todos los estudiantes):                                https://testjava2020.rj.r.appspot.com/students/
 
-GET (Trae un estudiante por su rut):                             https://testjava2020.rj.r.appspot.com/students/
+GET (Trae un estudiante por su rut):                             https://testjava2020.rj.r.appspot.com/students/{rut-sin-digito-verificador-y-sin-puntos}
 
 POST (Persiste un estudiante con la estructura JSON dada):       https://testjava2020.rj.r.appspot.com/students/
 
