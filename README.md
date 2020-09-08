@@ -64,10 +64,11 @@ La estructura de los JSON de STUDENTS sería:
         }
 }
 ```
-```
 **NOTA: La rama  MASTER tiene la implementación de Spring security con Oauth2, se logro generar el token en la URL /oauth/token/ , pero no se logro validar la rutas protegidas de los endpoint /courses/ , /students/ ... por motivo de lo anterior se opta subir la rama sin spring security para validar el funcionamiento de la API REST.**
 
 **Ramas:**
+
+```
 
 **master:** Tiene implementación de spring security Oauth2, pero no se logra hacer que funcione el token para acceder a las rutas protegidas.
 
