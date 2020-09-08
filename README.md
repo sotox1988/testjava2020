@@ -15,23 +15,28 @@ La api esta compuesta por 2 endpoints principales:
 Uno para COURSES y otro para STUDENTS, cada ruta posee sus metodos GET, POST, PUT y DELETE.
 Se desplego la aplicación en los servicios ofrecidos en la nube por Heroku y Google cloud platform mediante App Engine.
 
-
+**URL GCP:**
 ```
-**URL GCP:** https://testjava2020.rj.r.appspot.com/ 
-
-**URL HEROKU:** https://test-app-java-2020.herokuapp.com/
+https://testjava2020.rj.r.appspot.com/ 
 ```
 
+**URL HEROKU:**
 ```
-La ruta para COURSES sería (**/courses/)
+https://test-app-java-2020.herokuapp.com/
+```
 
-GET:      https://test-app-java-2020.herokuapp.com/courses/
+**La ruta para COURSES sería (.../courses/)**
+```
 
-POST:     https://test-app-java-2020.herokuapp.com/courses/
+GET (Trae todos los cursos):                              https://testjava2020.rj.r.appspot.com/courses/
 
-PUT:      https://test-app-java-2020.herokuapp.com/courses/{codigo-curso}
+GET (Trae un curso por su código):                        https://testjava2020.rj.r.appspot.com/courses/{codigo-curso}
 
-DELETE:   https://test-app-java-2020.herokuapp.com/courses/{codigo-curso}
+POST (Persiste un curso con la estructura JSON dada):     https://testjava2020.rj.r.appspot.com/courses/
+
+PUT (Modifica un curso por su código):                    https://testjava2020.rj.r.appspot.com/courses/{codigo-curso}
+
+DELETE (Borra un curso por su código):                    https://testjava2020.rj.r.appspot.com/courses/{codigo-curso}
 
 La estructura de los JSON de COURSES sería:
 {
@@ -40,17 +45,18 @@ La estructura de los JSON de COURSES sería:
 }
 ```
 
-
+**La ruta para STUDENTS sería (/students/)**
 ```
-La ruta para STUDENTS sería (**/students/)
 
-GET:      https://test-app-java-2020.herokuapp.com/students/
+GET (Trae todos los estudiantes):                                https://testjava2020.rj.r.appspot.com/students/
 
-POST:     https://test-app-java-2020.herokuapp.com/students/
+GET (Trae un estudiante por su rut):                             https://testjava2020.rj.r.appspot.com/students/
 
-PUT:      https://test-app-java-2020.herokuapp.com/students/{rut-sin-digito-verificador-y-sin-puntos}
+POST (Persiste un estudiante con la estructura JSON dada):       https://testjava2020.rj.r.appspot.com/students/
 
-DELETE:   https://test-app-java-2020.herokuapp.com/students/{rut-sin-digito-verificador-y-sin-puntos}
+PUT (Modifica un estudiante por su rut):                         https://testjava2020.rj.r.appspot.com/students/{rut-sin-digito-verificador-y-sin-puntos}
+
+DELETE (Borra un estudiante por su rut):                         https://testjava2020.rj.r.appspot.com/students/{rut-sin-digito-verificador-y-sin-puntos}
 
 La estructura de los JSON de STUDENTS sería:
 {
